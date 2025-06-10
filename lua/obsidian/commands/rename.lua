@@ -186,10 +186,14 @@ return function(client, data)
   -- to account for the rename.
   cur_note.id = new_note_id
   cur_note.path = Path.new(new_note_path)
-  if not dry_run then
-    cur_note:save()
-  else
-    log.info("Dry run: updating frontmatter of '" .. tostring(new_note_path) .. "'")
+
+  -- HACK: temp fix cur_note 자체에서 disable_frontmatter를 다루워야한다.
+  if not client.opts.disable_frontmatter then
+    if not dry_run then
+      cur_note:save()
+    else
+      log.info("Dry run: updating frontmatter of '" .. tostring(new_note_path) .. "'")
+    end
   end
 
   local cur_note_rel_path = tostring(client:vault_relative_path(cur_note_path, { strict = true }))

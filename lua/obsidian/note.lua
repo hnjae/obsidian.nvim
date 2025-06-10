@@ -728,6 +728,7 @@ Note.save = function(self, opts)
     new_lines = compat.flatten { self:frontmatter_lines(false, opts.frontmatter), content }
   else
     -- Use existing frontmatter.
+    -- TODO: DO NOT TOUCH FRONTMATTER <2025-05-21>
     new_lines = compat.flatten { existing_frontmatter, content }
   end
 
